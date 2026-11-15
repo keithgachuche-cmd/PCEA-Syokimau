@@ -1,0 +1,24 @@
+{
+  "name": "P.C.E.A Syokimau Church",
+  "verse": { "text": "God is light; in him there is no darkness.", "ref": "1 John 1:5" },
+  "motto": "To worship God and care for humanity in obedience to the Great Commission.",
+  "mission": "To see people redeemed, healed, spiritually equipped and empowered to serve God through Evangelism and Discipleship.",
+  "vision": "To become a diverse community of Christians that glorifies God and evangelizes Christ across all nations.",
+  "values": ["Love", "Faithfulness", "Joy", "Peace", "Patience", "Kindness", "Goodness", "Holiness", "Self-Control"],
+  "services": [
+    { "title": "Sunday Services", "detail": "Add service times here" },
+    { "title": "Midweek Fellowship", "detail": "Add day and time here" }
+  ],
+  "location": ["Syokimau, Katani Road", "Syokimau", "Machakos County"],
+  "ministries": [
+    { "name": "Sunday School", "blurb": "Nurturing children in the word of God." },
+    { "name": "Youth", "blurb": "Growing young people in faith and purpose." },
+    { "name": "Women's Guild", "blurb": "Fellowship, prayer and service among women." },
+    { "name": "Men's Fellowship", "blurb": "Building godly men for family and community." }
+  ],
+  "giving": {
+    "mpesa": { "paybill": "247247", "account": "0470292646312" },
+    "bank": { "bank": "Equity Bank", "account": "0470292646312", "name": "P.C.E.A Syokimau" }
+  },
+  "contact": { "email": "info@pceasyokimau.or.ke", "website": "https://www.pceasyokimau.or.ke" }
+}
