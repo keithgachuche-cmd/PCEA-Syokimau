@@ -6,15 +6,15 @@ import {
   FaPinterestP,
 } from "react-icons/fa6";
 import PageBanner from "../components/PageBanner";
+import { socials } from "../data/socials";
 
-// Put each page's real link in "url". Cards with an empty url show "Link coming soon".
-const platforms = [
-  { name: "Facebook", handle: "PCEA Syokimau Church", blurb: "Church news, events and photos.", icon: FaFacebookF, color: "#1877F2", url: "" },
-  { name: "YouTube", handle: "PCEA Syokimau Church", blurb: "Watch our services and sermons.", icon: FaYoutube, color: "#E02424", url: "" },
-  { name: "Instagram", blurb: "Moments from our church life.", icon: FaInstagram, color: "#D6336C", url: "" },
-  { name: "X (Twitter)", blurb: "Updates and announcements.", icon: FaXTwitter, color: "#111111", url: "" },
-  { name: "Pinterest", blurb: "Inspiration and church themes.", icon: FaPinterestP, color: "#E60023", url: "" },
-];
+const icons = {
+  facebook: FaFacebookF,
+  youtube: FaYoutube,
+  instagram: FaInstagram,
+  x: FaXTwitter,
+  pinterest: FaPinterestP,
+};
 
 export default function SocialMedia() {
   return (
@@ -27,8 +27,8 @@ export default function SocialMedia() {
       <section className="py-10 md:py-14">
         <div className="mx-auto w-[92%] max-w-6xl">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {platforms.map((p) => {
-              const Icon = p.icon;
+            {socials.map((p) => {
+              const Icon = icons[p.key];
               const hasLink = Boolean(p.url);
               const Tag = hasLink ? "a" : "div";
               const linkProps = hasLink
@@ -37,9 +37,9 @@ export default function SocialMedia() {
 
               return (
                 <Tag
-                  key={p.name}
+                  key={p.key}
                   {...linkProps}
-                  className={`flex items-center gap-5 rounded-[28px] border border-white bg-white/75 p-6 shadow-[0_16px_40px_rgba(60,40,160,0.08)] backdrop-blur transition ${
+                  className={`group flex items-center gap-5 rounded-[28px] border border-white bg-white/75 p-6 shadow-[0_16px_40px_rgba(60,40,160,0.08)] backdrop-blur transition ${
                     hasLink
                       ? "hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(60,40,160,0.16)]"
                       : "opacity-75"
@@ -51,7 +51,7 @@ export default function SocialMedia() {
                   >
                     <Icon />
                   </span>
-                  <span>
+                  <span className="min-w-0">
                     <span className="block font-serif text-lg font-bold text-navy">
                       {p.name}
                     </span>
@@ -64,7 +64,16 @@ export default function SocialMedia() {
                         hasLink ? "text-indigo-brand" : "text-muted"
                       }`}
                     >
-                      {hasLink ? "Visit page →" : "Link coming soon"}
+                      {hasLink ? (
+                        <>
+                          Visit page{" "}
+                          <span className="inline-block transition group-hover:translate-x-1">
+                            →
+                          </span>
+                        </>
+                      ) : (
+                        "Link coming soon"
+                      )}
                     </span>
                   </span>
                 </Tag>
