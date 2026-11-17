@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PageBanner from "../components/PageBanner";
 
 const orderOfService = [
   { name: "English Service", time: "8:30am – 10:30am" },
@@ -36,53 +37,52 @@ const districts = [
 
 const tabs = ["Order of Service", "Districts"];
 
+const card =
+  "rounded-[28px] border border-white bg-white/75 shadow-[0_16px_40px_rgba(60,40,160,0.08)] backdrop-blur";
+
 export default function ServicesDistricts() {
   const [active, setActive] = useState(0);
 
   return (
     <>
-      {/* Page banner */}
-      <section className="bg-navy py-14 text-center text-white">
-        <div className="mx-auto w-[92%] max-w-6xl">
-          <h1 className="text-4xl md:text-5xl">Services &amp; Districts</h1>
-          <p className="mt-3 opacity-80">
-            Find our service times and the districts of our church.
-          </p>
-        </div>
-      </section>
+      <PageBanner
+        title="Services & Districts"
+        subtitle="Find our service times and the districts of our church."
+      />
 
       {/* Tabs */}
-      <div className="border-b border-gray-200 bg-white">
-        <div className="mx-auto w-[92%] max-w-6xl">
-          <div role="tablist" className="flex justify-center gap-3 py-4">
-            {tabs.map((t, i) => (
-              <button
-                key={t}
-                role="tab"
-                aria-selected={i === active}
-                onClick={() => setActive(i)}
-                className={`rounded-full border px-6 py-2 text-sm font-semibold transition ${
-                  i === active
-                    ? "border-coral bg-coral text-white"
-                    : "border-gray-200 text-navy hover:border-coral hover:text-coral"
-                }`}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
+      <div className="mx-auto mt-6 w-[92%] max-w-6xl">
+        <div
+          role="tablist"
+          className="mx-auto flex w-fit gap-2 rounded-full border border-white bg-white/70 p-1.5 shadow-[0_8px_30px_rgba(60,40,160,0.1)] backdrop-blur"
+        >
+          {tabs.map((t, i) => (
+            <button
+              key={t}
+              role="tab"
+              aria-selected={i === active}
+              onClick={() => setActive(i)}
+              className={`rounded-full px-6 py-2.5 text-sm font-semibold transition ${
+                i === active
+                  ? "bg-gradient-to-r from-indigo-brand to-violet-brand text-white shadow-md shadow-indigo-500/30"
+                  : "text-muted hover:text-navy"
+              }`}
+            >
+              {t}
+            </button>
+          ))}
         </div>
       </div>
 
       {/* Tab content */}
-      <section className="py-12 md:py-16">
+      <section className="py-10 md:py-14">
         <div className="mx-auto w-[92%] max-w-6xl">
           {active === 0 ? (
             <>
               <h2 className="mb-6 text-center text-3xl text-navy">
                 Order of Service
               </h2>
-              <div className="mx-auto max-w-xl divide-y divide-gray-200 rounded-2xl border border-[#f0ece5] bg-white shadow-[0_10px_30px_rgba(20,18,74,0.08)]">
+              <div className={`mx-auto max-w-xl divide-y divide-[#e6e3fa] ${card}`}>
                 {orderOfService.map((s) => (
                   <div
                     key={s.name}
@@ -94,15 +94,12 @@ export default function ServicesDistricts() {
                 ))}
               </div>
 
-              <h2 className="mb-6 mt-16 text-center text-3xl text-navy">
+              <h2 className="mb-6 mt-14 text-center text-3xl text-navy">
                 News &amp; Events
               </h2>
-              <div className="grid gap-6 md:grid-cols-3">
+              <div className="grid gap-5 md:grid-cols-3">
                 {news.map((n) => (
-                  <article
-                    key={n.title}
-                    className="rounded-2xl border border-[#f0ece5] bg-white p-7 shadow-[0_10px_30px_rgba(20,18,74,0.08)]"
-                  >
+                  <article key={n.title} className={`${card} p-7`}>
                     <h3 className="mb-2 text-lg text-coral-dark">{n.title}</h3>
                     <p className="text-[0.97rem] text-muted">{n.text}</p>
                   </article>
@@ -114,13 +111,13 @@ export default function ServicesDistricts() {
               <h2 className="mb-8 text-center text-3xl text-navy">
                 Our Districts
               </h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {districts.map((d, i) => (
                   <div
                     key={d}
-                    className="flex items-center gap-4 rounded-2xl border border-[#f0ece5] bg-white p-5 shadow-[0_10px_30px_rgba(20,18,74,0.08)] transition hover:-translate-y-1 hover:shadow-xl"
+                    className={`${card} flex items-center gap-4 p-5 transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(60,40,160,0.16)]`}
                   >
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-coral/10 font-semibold text-coral">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#eceaff] font-serif font-bold text-indigo-brand">
                       {i + 1}
                     </span>
                     <span className="text-lg font-semibold text-navy">

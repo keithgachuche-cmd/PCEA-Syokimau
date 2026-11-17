@@ -45,3 +45,83 @@ h1, h2, h3 {
   letter-spacing: -0.02em;
   font-weight: 700;
 }
+
+/* ---------- Dark mode ---------- */
+html.dark {
+  background: #0d0b2b;
+  color-scheme: dark;
+  --color-navy: #f3f2ff;
+  --color-ink: #f3f2ff;
+  --color-muted: #c4c1ea;
+  --color-coral-dark: #ff8a70;
+  --color-cream: #1b1850;
+}
+
+.dark body::before {
+  background:
+    radial-gradient(640px circle at 0% 0%, rgba(99, 102, 241, 0.28), transparent 60%),
+    radial-gradient(580px circle at 100% 8%, rgba(242, 107, 78, 0.16), transparent 60%),
+    radial-gradient(620px circle at 40% 100%, rgba(56, 189, 248, 0.12), transparent 60%);
+}
+
+/* Cards and other white surfaces */
+.dark .bg-white,
+.dark .bg-white\/80,
+.dark .bg-white\/75 {
+  background-color: rgba(30, 27, 75, 0.75);
+}
+.dark .hover\:bg-white:hover {
+  background-color: #3b3790;
+}
+
+/* Menu bar: more solid so text behind it can't show through */
+.dark .bg-white\/70 {
+  background-color: rgba(21, 18, 63, 0.88);
+}
+
+/* Mobile dropdown menu: fully solid */
+.dark .bg-white\/95 {
+  background-color: #15123f;
+}
+
+/* Dark blocks that must stay dark (Services strip, Contact button, banners) */
+.dark .bg-navy {
+  background-color: #312e81;
+}
+.dark .from-navy {
+  --tw-gradient-from: #25215c;
+}
+
+/* Soft tinted icon backgrounds and accent text */
+.dark .bg-\[\#eceaff\] {
+  background-color: rgba(129, 140, 248, 0.2);
+}
+.dark .text-indigo-brand {
+  color: #a5b4fc;
+}
+
+/* Borders and dividers */
+.dark .border-white,
+.dark .border-\[\#d9d6f5\],
+.dark .border-\[\#f0ece5\],
+.dark .border-\[\#eadfce\] {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.dark .divide-\[\#e6e3fa\] > * {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- Welcome screen animations ---------- */
+@keyframes welcome-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes welcome-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+.welcome-up { animation: welcome-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.welcome-float { animation: welcome-float 7s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .welcome-up, .welcome-float { animation: none; }
+}
