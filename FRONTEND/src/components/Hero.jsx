@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
 
-const slides = ["/church-1.png", "/church-2.png", "/church-3.png"];
+const slides = [
+  { src: "/church-1.webp", alt: "P.C.E.A Syokimau church building" },
+  { src: "/church-2.webp", alt: "The congregation gathered for worship" },
+  { src: "/church-3.webp", alt: "Inside the church sanctuary" },
+];
 
 export default function Hero() {
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   // Auto-advance every 5 seconds (the timer restarts after a manual change)
   useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (paused || reduce) return;
     const id = setInterval(
       () => setIndex((i) => (i + 1) % slides.length),
       5000
     );
     return () => clearInterval(id);
-  }, [index]);
+  }, [index, paused]);
 
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
   const next = () => setIndex((i) => (i + 1) % slides.length);
@@ -68,16 +75,33 @@ export default function Hero() {
         </div>
 
         {/* Photo slider */}
-        <div className="relative overflow-hidden rounded-[36px] border border-white shadow-[0_20px_60px_rgba(60,40,160,0.15)] lg:col-span-12">
+        <div
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Photos of our church"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={() => setPaused(false)}
+          onKeyDown={(e) => {
+            if (e.key === "ArrowLeft") prev();
+            if (e.key === "ArrowRight") next();
+          }}
+          className="relative overflow-hidden rounded-[36px] border border-white shadow-[0_20px_60px_rgba(60,40,160,0.15)] lg:col-span-12"
+        >
           <div
             className="flex aspect-[16/9] transition-transform duration-700 ease-in-out sm:aspect-[3/1]"
             style={{ transform: `translateX(-${index * 100}%)` }}
           >
-            {slides.map((src) => (
-              <div
-                key={src}
-                className="h-full w-full shrink-0 bg-cover bg-center"
-                style={{ backgroundImage: `url('${src}')` }}
+            {slides.map((s, i) => (
+              <img
+                key={s.src}
+                src={s.src}
+                alt={s.alt}
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                aria-hidden={i !== index}
+                className="h-full w-full shrink-0 object-cover"
               />
             ))}
           </div>

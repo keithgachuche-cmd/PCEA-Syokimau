@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import ScrollToHash from "./components/ScrollToHash";
 import Home from "./pages/Home";
 import ServicesDistricts from "./pages/ServicesDistricts";
@@ -11,7 +12,7 @@ export default function App() {
     <>
       <ScrollToHash />
       <Header />
-      <main>
+      <main id="main">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services-districts" element={<ServicesDistricts />} />
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/social-media" element={<SocialMedia />} />
         </Routes>
       </main>
+      <Footer />
     </>
   );
 }

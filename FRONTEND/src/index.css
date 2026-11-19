@@ -14,8 +14,11 @@
   --font-serif: "Sora", system-ui, sans-serif;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 96px;
   background: #f5f4ff;
 }
@@ -125,3 +128,35 @@ html.dark {
 @media (prefers-reduced-motion: reduce) {
   .welcome-up, .welcome-float { animation: none; }
 }
+
+/* ---------- Accessibility & polish ---------- */
+:focus-visible {
+  outline: 3px solid var(--color-indigo-brand);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+.dark :focus-visible { outline-color: #a5b4fc; }
+
+::selection { background: rgba(124, 58, 237, 0.25); }
+
+.skip-link {
+  position: fixed; left: 1rem; top: -4rem; z-index: 200;
+  background: var(--color-navy); color: #fff; padding: .6rem 1rem;
+  border-radius: 999px; font-weight: 600; transition: top .2s;
+}
+.dark .skip-link { background: #312e81; }
+.skip-link:focus { top: 1rem; }
+
+/* Form fields */
+.field {
+  width: 100%; border-radius: 16px; border: 1px solid #d9d6f5;
+  background: rgba(255,255,255,.9); padding: .8rem 1rem; color: #1a1740;
+  transition: border-color .2s, box-shadow .2s;
+}
+.field::placeholder { color: #6b6896; }
+.field:focus { outline: none; border-color: var(--color-indigo-brand); box-shadow: 0 0 0 4px rgba(79,70,229,.18); }
+.dark .field { background: rgba(21,18,63,.8); border-color: rgba(255,255,255,.18); color: #f3f2ff; }
+.dark .field::placeholder { color: #a9a6d4; }
+
+/* Mobile: keep tap targets comfortable */
+@media (max-width: 640px) { body { font-size: 1.02rem; } }
