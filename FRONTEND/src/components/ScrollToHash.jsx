@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+// Stop the browser from restoring an old scroll position on reload
+if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
+
 export default function ScrollToHash() {
   const { pathname, hash } = useLocation();
 
@@ -12,7 +17,8 @@ export default function ScrollToHash() {
         return;
       }
     }
-    window.scrollTo(0, 0);
+    // "instant" so it doesn't glide slowly (the site uses smooth scrolling)
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [pathname, hash]);
 
   return null;

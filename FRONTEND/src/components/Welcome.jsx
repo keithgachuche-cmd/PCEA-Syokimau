@@ -18,6 +18,9 @@ export default function Welcome() {
 
   const enter = () => {
     alreadyEntered = true;
+    if (!window.location.hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
     setLeaving(true);
     setTimeout(() => setShow(false), 700);
   };
@@ -114,7 +117,6 @@ export default function Welcome() {
 
         <button
           onClick={enter}
-          autoFocus
           className="welcome-up mt-[clamp(0.25rem,1.5vh,1rem)] w-full rounded-full bg-coral px-9 py-[clamp(0.8rem,1.8vh,1.1rem)] text-[clamp(0.95rem,0.8vw+0.7rem,1.15rem)] font-semibold text-[#1a0a06] shadow-[0_0_50px_-8px_#f26b4e] transition hover:bg-[#ff8a70] min-[520px]:w-auto"
           style={{ animationDelay: "0.9s" }}
         >
