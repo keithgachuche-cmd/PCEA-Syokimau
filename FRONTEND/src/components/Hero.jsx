@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 const slides = [
-  { src: "/church-1.webp", alt: "P.C.E.A Syokimau church building" },
-  { src: "/church-2.webp", alt: "The congregation gathered for worship" },
-  { src: "/church-3.webp", alt: "Inside the church sanctuary" },
+  { src: "/church-1.png", alt: "P.C.E.A Syokimau church building" },
+  { src: "/church-2.png", alt: "The congregation gathered for worship" },
+  { src: "/church-3.png", alt: "Inside the church sanctuary" },
 ];
 
 export default function Hero() {
