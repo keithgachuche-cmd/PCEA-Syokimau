@@ -27,39 +27,11 @@ function MoonIcon() {
   );
 }
 
-function MonitorIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="3" y="4" width="18" height="12" rx="2" />
-      <path d="M8 20h8M12 16v4" />
-    </svg>
-  );
-}
-
-// Theme preference: "system" (follow the device), "light" or "dark".
-// Only an explicit light/dark choice is saved; "system" means nothing saved.
-const darkQuery = () => window.matchMedia("(prefers-color-scheme: dark)");
-
-function getPref() {
-  try {
-    const t = localStorage.getItem("theme");
-    return t === "light" || t === "dark" ? t : "system";
-  } catch {
-    return "system";
-  }
-}
-
-function applyTheme(pref) {
-  const isDark = pref === "dark" || (pref === "system" && darkQuery().matches);
-  document.documentElement.classList.toggle("dark", isDark);
-}
-
-const NEXT = { system: "light", light: "dark", dark: "system" };
-const LABEL = { system: "Auto (device setting)", light: "Light", dark: "Dark" };
-
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [pref, setPref] = useState(getPref);
+  const [dark, setDark] = useState(() =>
+    document.documentElement.classList.contains("dark")
+  );
   const { pathname, hash } = useLocation();
 
   // Close the mobile menu with the Escape key
@@ -70,22 +42,12 @@ export default function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  // Apply the chosen theme; while on "system", follow live device changes
-  useEffect(() => {
-    applyTheme(pref);
-    if (pref !== "system") return;
-    const mq = darkQuery();
-    const onChange = () => applyTheme("system");
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, [pref]);
-
-  const cycleTheme = () => {
-    const next = NEXT[pref];
-    setPref(next);
+  const toggleDark = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
     try {
-      if (next === "system") localStorage.removeItem("theme");
-      else localStorage.setItem("theme", next);
+      localStorage.setItem("theme", next ? "dark" : "light");
     } catch {
       /* ignore */
     }
@@ -117,9 +79,9 @@ export default function Header() {
           aria-controls="site-nav"
           onClick={() => setOpen(!open)}
         >
-          <span className={`block h-0.5 w-6 bg-ink transition ${open ? "translate-y-2 rotate-45" : ""}`}></span>
-          <span className={`block h-0.5 w-6 bg-ink transition ${open ? "opacity-0" : ""}`}></span>
-          <span className={`block h-0.5 w-6 bg-ink transition ${open ? "-translate-y-2 -rotate-45" : ""}`}></span>
+          <span className={`block h-0.5 w-6 bg-navy transition ${open ? "translate-y-2 rotate-45" : ""}`}></span>
+          <span className={`block h-0.5 w-6 bg-navy transition ${open ? "opacity-0" : ""}`}></span>
+          <span className={`block h-0.5 w-6 bg-navy transition ${open ? "-translate-y-2 -rotate-45" : ""}`}></span>
         </button>
 
         <nav
@@ -155,12 +117,12 @@ export default function Header() {
               Contact
             </Link>
             <button
-              onClick={cycleTheme}
-              aria-label={`Theme: ${LABEL[pref]}. Switch to ${LABEL[NEXT[pref]]}`}
-              title={`Theme: ${LABEL[pref]}`}
+              onClick={toggleDark}
+              aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+              title={dark ? "Light mode" : "Dark mode"}
               className="grid h-11 w-11 place-items-center rounded-full border border-[#d9d6f5] text-navy transition hover:bg-navy/10"
             >
-              {pref === "system" ? <MonitorIcon /> : pref === "dark" ? <MoonIcon /> : <SunIcon />}
+              {dark ? <SunIcon /> : <MoonIcon />}
             </button>
           </div>
         </nav>
