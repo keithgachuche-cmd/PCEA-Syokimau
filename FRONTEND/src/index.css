@@ -162,3 +162,103 @@ html.dark {
 
 /* Mobile: keep tap targets comfortable */
 @media (max-width: 640px) { body { font-size: 1.02rem; } }
+
+/* =====================================================================
+   Motion & animation
+   Everything below only animates opacity/transform so it stays smooth,
+   and is switched off for visitors who prefer reduced motion.
+   ===================================================================== */
+
+/* Scroll reveal: used by <Reveal /> */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal-fade { transform: none; }
+.reveal-zoom { transform: scale(0.95); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Page change: a soft fade (opacity only, so the fixed welcome screen is unaffected) */
+@keyframes page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.page-enter { animation: page-in 0.45s ease-out backwards; }
+
+/* Tab switch on Services & Districts */
+@keyframes tab-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.tab-fade { animation: tab-in 0.4s ease-out backwards; }
+
+/* Hero photos: slow zoom (Ken Burns) on the visible slide */
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+.kb-img { transform: scale(1.1); }
+.kb-img.is-active { animation: kenburns 9s ease-out both; }
+
+/* Sun/moon icon spins in when the theme changes */
+@keyframes icon-spin {
+  from { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+.icon-spin { animation: icon-spin 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+/* Light sweep across the main buttons on hover */
+.btn-shine { position: relative; overflow: hidden; }
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 40%;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: translateX(-160%) skewX(-20deg);
+  transition: transform 0.7s ease;
+}
+.btn-shine:hover::after { transform: translateX(420%) skewX(-20deg); }
+
+/* Soft pulsing ring on the "Enter our website" button */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(242, 107, 78, 0.55); }
+  70%, 100% { box-shadow: 0 0 0 20px rgba(242, 107, 78, 0); }
+}
+.pulse-ring { position: relative; }
+.pulse-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: pulse-ring 2.2s ease-out 1.8s infinite;
+}
+
+/* "Copied" pop on the Give copy buttons */
+@keyframes copy-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+.copy-pop { animation: copy-pop 0.35s ease-out; }
+
+/* Contact form status message slides in */
+@keyframes msg-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+.msg-in { animation: msg-in 0.35s ease-out both; }
+
+/* Respect "reduce motion" everywhere */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .page-enter, .tab-fade, .kb-img.is-active, .icon-spin, .copy-pop, .msg-in { animation: none; }
+  .kb-img { transform: none; }
+  .btn-shine::after { display: none; }
+  .pulse-ring::before { animation: none; }
+}

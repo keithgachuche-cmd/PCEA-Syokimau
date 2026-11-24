@@ -49,8 +49,8 @@ export default function Hero() {
             loading={i === 0 ? "eager" : "lazy"}
             decoding="async"
             aria-hidden={i !== index}
-            className={`absolute inset-0 -z-20 h-full w-full object-cover transition-opacity duration-1000 ${
-              i === index ? "opacity-100" : "opacity-0"
+            className={`kb-img absolute inset-0 -z-20 h-full w-full object-cover transition-opacity duration-1000 ${
+              i === index ? "is-active opacity-100" : "opacity-0"
             }`}
           />
         ))}
@@ -112,7 +112,7 @@ export default function Hero() {
             <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href="#services"
-                className="rounded-full bg-gradient-to-r from-indigo-brand to-violet-brand px-7 py-3.5 font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5"
+                className="btn-shine rounded-full bg-gradient-to-r from-indigo-brand to-violet-brand px-7 py-3.5 font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5"
               >
                 Join us this Sunday
               </a>

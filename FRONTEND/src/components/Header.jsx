@@ -33,6 +33,7 @@ export default function Header() {
     document.documentElement.classList.contains("dark")
   );
   const { pathname, hash } = useLocation();
+  const [scrolled, setScrolled] = useState(() => window.scrollY > 12);
 
   // Close the mobile menu with the Escape key
   useEffect(() => {
@@ -41,6 +42,13 @@ export default function Header() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+
+  // Deepen the bar's shadow once the visitor scrolls down
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const toggleDark = () => {
     const next = !dark;
@@ -63,7 +71,11 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 px-4 pt-4 md:px-8">
       <a href="#main" className="skip-link">Skip to content</a>
-      <div className="relative mx-auto flex h-16 max-w-6xl items-center justify-between rounded-full border border-white bg-white/70 px-5 shadow-[0_8px_30px_rgba(60,40,160,0.1)] backdrop-blur-xl">
+      <div className={`relative mx-auto flex h-16 max-w-6xl items-center justify-between rounded-full border border-white bg-white/70 px-5 backdrop-blur-xl transition-shadow duration-300 ${
+          scrolled
+            ? "shadow-[0_14px_40px_rgba(60,40,160,0.22)]"
+            : "shadow-[0_8px_30px_rgba(60,40,160,0.1)]"
+        }`}>
         <Link
           to="/"
           className="flex items-center gap-2.5 font-serif text-lg font-bold text-navy"
@@ -122,7 +134,9 @@ export default function Header() {
               title={dark ? "Light mode" : "Dark mode"}
               className="grid h-11 w-11 place-items-center rounded-full border border-[#d9d6f5] text-navy transition hover:bg-navy/10"
             >
-              {dark ? <SunIcon /> : <MoonIcon />}
+              <span key={String(dark)} className="icon-spin grid place-items-center">
+                {dark ? <SunIcon /> : <MoonIcon />}
+              </span>
             </button>
           </div>
         </nav>

@@ -59,13 +59,23 @@ export default function Contact() {
           <button
             type="submit"
             disabled={status === "sending"}
-            className="w-full rounded-full bg-gradient-to-r from-indigo-brand to-violet-brand px-7 py-3.5 font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
+            className="btn-shine w-full rounded-full bg-gradient-to-r from-indigo-brand to-violet-brand px-7 py-3.5 font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
           >
-            {status === "sending" ? "Sending…" : "Send message"}
+            {status === "sending" ? (
+              <span className="inline-flex items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+                />
+                Sending…
+              </span>
+            ) : (
+              "Send message"
+            )}
           </button>
           <p role="status" aria-live="polite" className="min-h-6 text-sm font-semibold">
-            {status === "sent" && <span className="text-emerald-600 dark:text-emerald-300">Thank you! Your message has been sent.</span>}
-            {status === "error" && <span className="text-red-600 dark:text-red-300">Sorry, that did not send. Please try again or email us.</span>}
+            {status === "sent" && <span className="msg-in inline-block text-emerald-600 dark:text-emerald-300">Thank you! Your message has been sent.</span>}
+            {status === "error" && <span className="msg-in inline-block text-red-600 dark:text-red-300">Sorry, that did not send. Please try again or email us.</span>}
           </p>
         </form>
       </div>
