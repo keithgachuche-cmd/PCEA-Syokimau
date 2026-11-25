@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import PageBanner from "../components/PageBanner";
+import { districts } from "../data/districts";
 
 const orderOfService = [
   { name: "English Service", time: "8:30am – 10:30am" },
@@ -23,25 +25,14 @@ const news = [
   },
 ];
 
-const districts = [
-  "Central",
-  "Emanuel",
-  "Kanisani",
-  "Airport",
-  "Genesis",
-  "Siloam",
-  "Bethsaida",
-  "Jerusalem",
-  "Highway",
-];
-
 const tabs = ["Order of Service", "Districts"];
 
 const card =
   "rounded-[28px] border border-white bg-white/75 shadow-[0_16px_40px_rgba(60,40,160,0.08)] backdrop-blur";
 
 export default function ServicesDistricts() {
-  const [active, setActive] = useState(0);
+  const [params] = useSearchParams();
+  const [active, setActive] = useState(params.get("tab") === "districts" ? 1 : 0);
 
   return (
     <>
@@ -113,17 +104,18 @@ export default function ServicesDistricts() {
               </h2>
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {districts.map((d, i) => (
-                  <div
-                    key={d}
+                  <Link
+                    key={d.slug}
+                    to={`/services-districts/${d.slug}`}
                     className={`${card} flex items-center gap-4 p-5 transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(60,40,160,0.16)]`}
                   >
                     <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#eceaff] font-serif font-bold text-indigo-brand">
                       {i + 1}
                     </span>
                     <span className="text-lg font-semibold text-navy">
-                      {d} District
+                      {d.name} District
                     </span>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </>

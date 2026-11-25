@@ -15,7 +15,7 @@ export const socials = [
     handle: "@PCEASyokimauChurch",
     blurb: "Watch our services and sermons.",
     color: "#E02424",
-    url: "https://www.youtube.com/@PCEASyokimauChurch",
+    url: "https://www.youtube.com/channel/UCECiw65AQGopw5xswkLheqQ",
   },
   {
     key: "instagram",

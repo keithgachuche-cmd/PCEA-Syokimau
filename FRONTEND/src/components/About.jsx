@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const cards = [
   {
     icon: "✦",
@@ -68,6 +70,22 @@ export default function About() {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          {[
+            { to: "/about/history", label: "Our History" },
+            { to: "/about/structure", label: "Management Structure" },
+            { to: "/about/leaders", label: "Church Leaders" },
+          ].map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              className="rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-indigo-brand"
+            >
+              {l.label}
+            </Link>
+          ))}
         </div>
       </div>
     </section>

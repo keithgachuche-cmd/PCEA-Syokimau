@@ -16,10 +16,14 @@ export default function Footer() {
         <nav aria-label="Footer">
           <p className="mb-2 font-semibold text-coral">Explore</p>
           <ul className="space-y-1 text-white/75">
+            <li><Link className="hover:text-white" to="/about/history">Our History</Link></li>
+            <li><Link className="hover:text-white" to="/about/structure">Management Structure</Link></li>
+            <li><Link className="hover:text-white" to="/about/leaders">Church Leaders</Link></li>
             <li><Link className="hover:text-white" to="/ministries-groups">Ministries &amp; Groups</Link></li>
             <li><Link className="hover:text-white" to="/services-districts">Services &amp; Districts</Link></li>
             <li><Link className="hover:text-white" to="/social-media">Social Media</Link></li>
             <li><Link className="hover:text-white" to="/#give">Give</Link></li>
+            <li><a className="hover:text-white" href="http://www.pceasyokimau.or.ke/webmail" target="_blank" rel="noreferrer">Church Email</a></li>
           </ul>
         </nav>
       </div>
