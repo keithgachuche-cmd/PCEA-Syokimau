@@ -262,3 +262,12 @@ html.dark {
   .btn-shine::after { display: none; }
   .pulse-ring::before { animation: none; }
 }
+
+.hero-slide {
+  transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1);
+  will-change: transform;
+}
+.hero-slide.no-anim { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide { transition: none; }
+}

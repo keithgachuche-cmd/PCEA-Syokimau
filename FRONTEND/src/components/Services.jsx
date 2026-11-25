@@ -1,3 +1,5 @@
+import LocationModal from "./LocationModal";
+
 // Edit the text below to change what shows in the strip
 const items = [
   {
@@ -19,6 +21,7 @@ const items = [
   {
     title: "Find us",
     lines: ["Syokimau, Katani Road", "Machakos County"],
+    showMap: true,
   },
 ];
 
@@ -37,6 +40,11 @@ export default function Services() {
                 {line}
               </p>
             ))}
+            {item.showMap && (
+              <div className="mt-4">
+                <LocationModal />
+              </div>
+            )}
           </div>
         ))}
       </div>
